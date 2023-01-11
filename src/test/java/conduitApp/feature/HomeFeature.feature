@@ -1,3 +1,4 @@
+@debug
 Feature: Test for the home page
 
   Background:
@@ -23,4 +24,8 @@ Feature: Test for the home page
     When method GET
     Then status 200
     And match response.articles == "#[10]"
-    And match response.articlesCount == 197
+    And match response.articlesCount == 202
+    And match $ == { "articles": "#array", "articlesCount": "#number"}
+    And match $.articles[*].favoritesCount contains 0
+    And match each $..favoritesCount == "#number"
+    And match each $..following == false

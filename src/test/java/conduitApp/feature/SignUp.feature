@@ -2,7 +2,6 @@ Feature: Sign up new user
   Background: Preconditions
     Given url apiUrl
 
-    @debug
     Scenario: New user sign up
       * def userData = {"email":"auto4@gmail.com","username":"auto4"}
       Given path 'users'
