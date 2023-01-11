@@ -22,7 +22,7 @@ Feature: Articles
     Then status 200
     And match $.article.title == "Test5"
 
-  @debug
+  #@debug
   Scenario: Create and delete article
     #Given header Authorization = "Token " + token
     Given path "articles"
