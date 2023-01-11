@@ -13,6 +13,7 @@ Feature: Test for the home page
     And match response.tags == "#array"
     And match each response.tags == "#string"
 
+  #@debug
   Scenario: Get 10 articles from the page
     #Given url "https://conduit.productionready.io/api/"
     Given path "articles"
