@@ -6,13 +6,18 @@ function fn() {
   }
   var config = {
     env: env,
-    myVarName: 'someValue'
+    apiUrl: 'https://conduit.productionready.io/api/'
   }
   if (env == 'dev') {
-    // customize
-    // e.g. config.foo = 'bar';
+    config.userEmail = 'debi@gmail.com'
+    config.userPass = 'debi'
   } else if (env == 'e2e') {
-    // customize
+    config.userEmail = 'debi2@gmail.com'
+    config.userPass = 'debi2'
   }
+
+  var accessToken = karate.callSingle('classpath:helpers/CreateToken.feature', config).authToken
+  karate.configure('headers', { Authorization: 'Token ' + accessToken })
+
   return config;
 }

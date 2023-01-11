@@ -1,7 +1,7 @@
 Feature: Test for the home page
 
   Background:
-    Given url "https://conduit.productionready.io/api/"
+    Given url apiUrl
 
   Scenario: Get all tags
     #Given url "https://conduit.productionready.io/api/"
