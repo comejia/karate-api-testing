@@ -29,3 +29,4 @@ Feature: Test for the home page
     And match $.articles[*].favoritesCount contains 0
     And match each $..favoritesCount == "#number"
     And match each $..following == false
+    And match each $..bio == "##string"
