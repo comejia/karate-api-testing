@@ -1,4 +1,3 @@
-@debug
 Feature: Test for the home page
 
   Background:
@@ -16,6 +15,7 @@ Feature: Test for the home page
 
   #@debug
   Scenario: Get 10 articles from the page
+    * def timeValidator = read('classpath:helpers/timeValidator.js')
     #Given url "https://conduit.productionready.io/api/"
     Given path "articles"
     And params { limit: 10, offset: 0 }
