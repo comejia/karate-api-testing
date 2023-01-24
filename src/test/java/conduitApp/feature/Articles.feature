@@ -1,4 +1,4 @@
-#@debug
+@debug
 Feature: Articles
 
   Background:
@@ -13,20 +13,27 @@ Feature: Articles
       #{"email": "debi@gmail.com", "password": "debi"}
     #* def token = tokenResponse.authToken
 
+    * def articleRequestBody = read("classpath:conduitApp/json/newArticleRequest.json")
+    * def dataGenerator = Java.type('helpers.DataGenerator')
+    * set articleRequestBody.article.title = dataGenerator.getRandomArticleValues().title
+    * set articleRequestBody.article.description = dataGenerator.getRandomArticleValues().description
+    * set articleRequestBody.article.body = dataGenerator.getRandomArticleValues().body
+
   #@ignore
   Scenario: Create a new article
     #Given header Authorization = "Token " + token
     Given path "articles"
-    And request {"article":{"tagList":[],"title":"Test5","description":"test","body":"test"}}
+#    And request {"article":{"tagList":[],"title":"Test5","description":"test","body":"test"}}
+    And request articleRequestBody
     When method post
     Then status 200
-    And match $.article.title == "Test5"
+    And match $.article.title == articleRequestBody.article.title
 
   #@debug
   Scenario: Create and delete article
     #Given header Authorization = "Token " + token
     Given path "articles"
-    And request {"article":{"tagList":[],"title":"Delete","description":"test","body":"test"}}
+    And request articleRequestBody
     When method post
     Then status 200
     * def articleId = $.article.slug
@@ -36,7 +43,7 @@ Feature: Articles
     And params { limit: 10, offset: 0 }
     When method GET
     Then status 200
-    And match response.articles[0].title == "Delete"
+    And match response.articles[0].title == articleRequestBody.article.title
 
     #Given header Authorization = "Token " + token
     And path "articles",articleId
@@ -48,4 +55,4 @@ Feature: Articles
     And params { limit: 10, offset: 0 }
     When method GET
     Then status 200
-    And match response.articles[0].title != "Delete"
+    And match response.articles[0].title != articleRequestBody.article.title

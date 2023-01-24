@@ -37,7 +37,6 @@ Feature: Sign up new user
     When method post
     Then status 200
 
-  @debug
   Scenario Outline: Validate Sign up error messages
 
 
